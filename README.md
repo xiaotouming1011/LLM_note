@@ -3,13 +3,13 @@
 ## 📊 思维导图
 
 ### 完整思维导图
-![AI应用层完整图](./ai应用层总图.png)
+![AI应用层完整图](./assets/ai应用层总图.png)
 
 ### RAG
-![RAG](./RAG.png)
+![RAG](./assets/RAG.png)
 
 ### Agent
-![Agent](./Agent.png)
+![Agent](./assets/Agent.png)
 
 ### LLM
-![LLM](./LLM.png)
+![LLM](./assets/LLM.png)
