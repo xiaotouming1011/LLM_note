@@ -3,29 +3,33 @@
   "checkpoint_id": "157631bed61d",
   "session_id": "c3fd6869-1723-4f4b-b257-9bd034f84eac",
   "strategy": "manual-commit",
-  "created_at": "2026-04-10T06:52:28.937427Z",
+  "created_at": "2026-04-10T07:29:47.332382Z",
   "branch": "master",
   "checkpoints_count": 1,
   "files_touched": [
+    "Embedding+Rerank.md",
+    "chunk.md",
     "记忆分几种类型，怎么储存.md"
   ],
   "agent": "Claude Code",
-  "transcript_identifier_at_start": "d0904798-77f1-4257-a483-5f88028a497d",
+  "transcript_identifier_at_start": "581cb5ec-495e-4352-b0a7-95c8a646ae9c",
+  "checkpoint_transcript_start": 95,
+  "transcript_lines_at_start": 95,
   "token_usage": {
-    "input_tokens": 4175,
-    "cache_creation_tokens": 40071,
-    "cache_read_tokens": 353628,
-    "output_tokens": 1905,
-    "api_call_count": 20
+    "input_tokens": 7519,
+    "cache_creation_tokens": 41954,
+    "cache_read_tokens": 642978,
+    "output_tokens": 4976,
+    "api_call_count": 27
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-10T06:52:28.901918Z",
-    "agent_lines": 1,
-    "human_added": 21,
+    "calculated_at": "2026-04-10T07:29:47.258366Z",
+    "agent_lines": 9,
+    "human_added": 18,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 22,
-    "agent_percentage": 4.545454545454546
+    "total_committed": 27,
+    "agent_percentage": 33.33333333333333
   },
   "transcript_path": ".claude/projects/-Users-anji-Documents-LLM-note---/c3fd6869-1723-4f4b-b257-9bd034f84eac.jsonl"
 }

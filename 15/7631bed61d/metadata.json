@@ -5,6 +5,8 @@
   "branch": "master",
   "checkpoints_count": 1,
   "files_touched": [
+    "Embedding+Rerank.md",
+    "chunk.md",
     "记忆分几种类型，怎么储存.md"
   ],
   "sessions": [
@@ -17,10 +19,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 4175,
-    "cache_creation_tokens": 40071,
-    "cache_read_tokens": 353628,
-    "output_tokens": 1905,
-    "api_call_count": 20
+    "input_tokens": 7519,
+    "cache_creation_tokens": 41954,
+    "cache_read_tokens": 642978,
+    "output_tokens": 4976,
+    "api_call_count": 27
   }
 }
