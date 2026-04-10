@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "157631bed61d",
+  "session_id": "c3fd6869-1723-4f4b-b257-9bd034f84eac",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-10T06:52:28.937427Z",
+  "branch": "master",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "记忆分几种类型，怎么储存.md"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "d0904798-77f1-4257-a483-5f88028a497d",
+  "token_usage": {
+    "input_tokens": 4175,
+    "cache_creation_tokens": 40071,
+    "cache_read_tokens": 353628,
+    "output_tokens": 1905,
+    "api_call_count": 20
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-10T06:52:28.901918Z",
+    "agent_lines": 1,
+    "human_added": 21,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 22,
+    "agent_percentage": 4.545454545454546
+  },
+  "transcript_path": ".claude/projects/-Users-anji-Documents-LLM-note---/c3fd6869-1723-4f4b-b257-9bd034f84eac.jsonl"
+}

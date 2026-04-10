@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "157631bed61d",
+  "strategy": "manual-commit",
+  "branch": "master",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "记忆分几种类型，怎么储存.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/15/7631bed61d/0/metadata.json",
+      "transcript": "/15/7631bed61d/0/full.jsonl",
+      "context": "/15/7631bed61d/0/context.md",
+      "content_hash": "/15/7631bed61d/0/content_hash.txt",
+      "prompt": "/15/7631bed61d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4175,
+    "cache_creation_tokens": 40071,
+    "cache_read_tokens": 353628,
+    "output_tokens": 1905,
+    "api_call_count": 20
+  }
+}
