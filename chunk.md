@@ -154,9 +154,9 @@ Overlap 参数不是拍脑袋定的。我们做了系统实验：
 
 召回率与存储率的平衡
 
-<img src="/Users/anji/Library/Application Support/typora-user-images/截屏2026-04-10 12.29.07.png" alt="截屏2026-04-10 12.29.07" style="zoom:33%;" />
+<img src="./assets/截屏2026-04-10 12.29.07.png" alt="截屏2026-04-10 12.29.07" style="zoom:33%;" />
 
-<img src="/Users/anji/Library/Application Support/typora-user-images/截屏2026-04-10 12.34.47.png" alt="截屏2026-04-10 12.34.47" style="zoom: 33%;" />
+<img src="./assets/截屏2026-04-10 12.34.47.png" alt="截屏2026-04-10 12.34.47" style="zoom: 33%;" />
 
 ## 在此基础上，进一步用句子边界对齐 overlap 截断点
 
