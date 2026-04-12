@@ -4,7 +4,7 @@ https://mp.weixin.qq.com/s/1GZtibu07K2rzhGF-PZJ2Q
 
 ![截屏2026-04-11 18.40.53](/Users/anji/Library/Application Support/typora-user-images/截屏2026-04-11 18.40.53.png)
 
-**GPT-4 为什么效果最差**，
+1.**GPT-4 为什么效果最差**，
 
 ![截屏2026-04-10 17.56.42](/Users/anji/Library/Application Support/typora-user-images/截屏2026-04-10 17.56.42.png)
 
@@ -16,7 +16,7 @@ GPT-4 效果最差的三个原因：
 
 **延迟不可接受**：单次 Rerank 30 个文档需要 3-5 秒，用户等不了，也根本没法上线。
 
-### Cross-Encoder 的核心优势是联合编码：
+### 2.Cross-Encoder 的核心优势是联合编码：
 
 Cross-Encoder 比 Bi-Encoder（Embedding 模型）准的根本原因：Bi-Encoder 独立编码 query 和 doc，用余弦相似度近似相关性；Cross-Encoder 把两者拼接后联合 Attention，计算真正的语义相关性。代价是不能预计算，只能实时处理，所以只对 Top30-40 做，不对全库做。
 
@@ -43,7 +43,7 @@ from FlagEmbedding import FlagReranker
                                     key=lambda x: x[1], reverse=True)[:5]]
 ```
 
-**什么时候用 LLM Rerank**而不用Cross-Encoder
+3.**什么时候用 LLM Rerank**而不用Cross-Encoder
 
 **场景1：多跳推理查询**
 
@@ -53,7 +53,7 @@ from FlagEmbedding import FlagReranker
 
 每天只出现 1-2 次的复杂查询，单次 LLM 成本可控，且这类查询往往需要更强的语义理解能力。
 
-用LLM Rerank与Cross-Encoder混合的策略来Rerank
+4.用LLM Rerank与Cross-Encoder混合的策略来Rerank
 
 ```python
 def rerank(query: str, docs: list) -> list:
@@ -71,7 +71,37 @@ def rerank(query: str, docs: list) -> list:
      return query_frequency(query) < 2 and len(query) > 30
 ```
 
-### **五个工程大坑**
+## 5.理解了 Bi-Encoder 和 Cross-Encoder 各自的特点，最优的架构设计就很自然了：把二者组合成一个级联管道。
+
+整体流程如下：
+
+1. 用 Bi-Encoder（向量检索）从全量文档库中快速召回 Top-20 候选文档（毫秒级）
+2. 用 Cross-Encoder（Reranker）对这 20 条候选文档精细打分，取 Top-5（几十毫秒）
+3. 把这 Top-5 条高质量文档送入 LLM 生成回答
+
+
+
+为什么不直接用 Cross-Encoder 做全量检索？原因很简单：假设文档库有 10 万条文档，每次查询都要对 10 万个 (query, doc) 对跑 Cross-Encoder，即使每对只需要 1 毫秒，总延迟也高达 100 秒，完全无法用于线上推理。而先用向量检索缩减到 20 条候选，再用 Cross-Encoder 精排，总延迟只增加几十毫秒，工程上完全可接受。
+
+![截屏2026-04-11 23.10.15](/Users/anji/Library/Application Support/typora-user-images/截屏2026-04-11 23.10.15.png)
+
+6.==**相似度阈值过滤：宁缺毋滥**==
+
+有了 Reranker 之后，还有一个常被忽略的细节：阈值过滤。
+
+Reranker 给每条文档打了一个 0-1 的相关性分数，并按分数取 Top-K。但如果所有候选文档的相关性分数都很低，即使取了 Top-5，这 5 条文档也可能是噪声。此时强行把它们送给 LLM，LLM 会基于这些低质量的上下文生成回答，结果往往是幻觉。
+
+正确的做法是在 Reranker 打分之后，再设一个绝对阈值（比如 0.5）。低于阈值的文档直接丢弃，即使 Top-K 里最终只剩 1 条甚至 0 条，也不要凑数追加低质量文档。如果所有文档都低于阈值，应当直接告诉用户"在知识库中未找到相关内容"，而不是让 LLM 瞎编一个答案。
+
+宁缺毋滥，这是 RAG 系统工程实践中非常重要的一个原则。
+
+## 7.**Reranker 的领域微调**
+
+对 Reranker 进行领域微调。微调的数据格式是三元组：(query, positive_doc, negative_doc)，即对于每个问题，需要一条真正相关的文档和一条看起来相关但实际不相关的文档。
+
+难负例（Hard Negative）的质量是微调效果的关键。所谓难负例，是指那些语义上与 query 很接近，但实际上没有包含答案的文档——正是 Bi-Encoder 最容易误判的那类文档。如果负例太容易区分（比如完全不同话题的文档），模型学不到有价值的判别能力。
+
+### 8.**五个工程大坑**
 
 **坑1：Embedding 和 Rerank 套件不匹配**
 
